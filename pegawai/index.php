@@ -4,6 +4,11 @@ require 'functions.php';
 $pegawai = query("SELECT * FROM pegawai");
 
 
+if (isset($_POST["tambah"])) {
+  header("Location: tambah.php");
+  exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -18,6 +23,11 @@ $pegawai = query("SELECT * FROM pegawai");
 
 <body>
   <h1>Daftar Pegawai</h1>
+
+  <form action="" method="POST">
+    <button type="submit" name="tambah">Tambah Data Pegawai</button>
+    <br><br>
+  </form>
 
 
   <table border="1" cellpadding="10" cellspacing="0">
@@ -35,7 +45,7 @@ $pegawai = query("SELECT * FROM pegawai");
       <tr>
         <td><?= $i; ?></td>
         <td>
-          <a href="">ubah</a> | <a href="">hapus</a>
+          <a href="">ubah</a> | <a href="hapus.php?id=<?= $pns["id"]; ?>" onclick="return confirm('Hapus data?');">hapus</a>
         </td>
         <td><img src="img/<?= $pns["gambar"]; ?>" width="40"></td>
         <td><?= $pns["nip"]; ?></td>
