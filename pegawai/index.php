@@ -45,7 +45,7 @@ if (isset($_POST["tambah"])) {
       <tr>
         <td><?= $i; ?></td>
         <td>
-          <a href="">ubah</a> | <a href="hapus.php?id=<?= $pns["id"]; ?>" onclick="return confirm('Hapus data?');">hapus</a>
+          <a href="ubah.php?id=<?= $pns["id"]; ?>">ubah</a> | <a href="hapus.php?id=<?= $pns["id"]; ?>" onclick="return confirm('Hapus data?');">hapus</a>
         </td>
         <td><img src="img/<?= $pns["gambar"]; ?>" width="40"></td>
         <td><?= $pns["nip"]; ?></td>
