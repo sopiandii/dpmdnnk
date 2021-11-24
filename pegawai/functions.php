@@ -14,6 +14,7 @@ function query($query)
   return $rows;
 }
 
+
 function tambah($data)
 {
   global $conn;
@@ -22,7 +23,9 @@ function tambah($data)
   $nama = htmlspecialchars($data["nama"]);
   $pangkat = htmlspecialchars($data["pangkat"]);
   $jabatan = htmlspecialchars($data["jabatan"]);
-  $gambar = htmlspecialchars($data["gambar"]);
+
+  // upload gambar
+  $gambar = upload();
 
   $query = "INSERT INTO pegawai 
             VALUES
@@ -33,12 +36,60 @@ function tambah($data)
   return mysqli_affected_rows($conn);
 }
 
+
+function upload()
+{
+  $namaFile = $_FILES['gambar']['name'];
+  $ukuranFile = $_FILES['gambar']['size'];
+  $error = $_FILES['gambar']['error'];
+  $tmpName = $_FILES['gambar']['tmp_name'];
+
+  // cek apakah tidak ada gambar yang diupload
+  if ($error === 4) {
+    echo "<script>
+            alert('Pilih gambar terlebih dahulu!');
+          </script>";
+    return false;
+  }
+
+  // cek apakah yang diupload gambar atau bukan
+  $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+  $ekstensiGambar = explode('.', $namaFile);
+  $ekstensiGambar = strtolower(end($ekstensiGambar));
+
+  if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+    echo "<script>
+            alert('Format file yang diunggah tidak sesuai!');
+          </script>";
+    return false;
+  }
+
+  // cek jika ukurannya terlalu besar
+  if ($ukuranFile > 1000000) {
+    echo "<script>
+            alert('Ukuran gambar terlalu besar! Maksimal 1MB.');
+          </script>";
+    return false;
+  }
+
+  // lolos pengecekan, gambar siap diupload
+  // generate nama gambar baru
+  $namaFileBaru = uniqid();
+  $namaFileBaru .= '.';
+  $namaFileBaru .= $ekstensiGambar;
+
+  move_uploaded_file($tmpName, 'img/' . $namaFileBaru);
+  return $namaFileBaru;
+}
+
+
 function hapus($id)
 {
   global $conn;
   mysqli_query($conn, "DELETE FROM pegawai WHERE id = $id");
   return mysqli_affected_rows($conn);
 }
+
 
 function ubah($data)
 {
@@ -49,7 +100,14 @@ function ubah($data)
   $nama = htmlspecialchars($data["nama"]);
   $pangkat = htmlspecialchars($data["pangkat"]);
   $jabatan = htmlspecialchars($data["jabatan"]);
-  $gambar = htmlspecialchars($data["gambar"]);
+  $gambarLama = htmlspecialchars($data["gambarLama"]);
+
+  // cek apakah user pilih gambar baru atau tidak
+  if ($_FILES['gambar']['error'] === 4) {
+    $gambar = $gambarLama;
+  } else {
+    $gambar = upload();
+  }
 
   $query = "UPDATE pegawai SET
             nip = '$nip',
@@ -62,6 +120,7 @@ function ubah($data)
   mysqli_query($conn, $query);
   return mysqli_affected_rows($conn);
 }
+
 
 function cari($keyword)
 {

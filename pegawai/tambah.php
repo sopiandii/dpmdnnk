@@ -39,7 +39,7 @@ if (isset($_POST["submit"])) {
 <body>
   <h1>Tambah Data Pegawai</h1>
 
-  <form action="" method="POST">
+  <form action="" method="POST" enctype="multipart/form-data">
     <ul>
       <li>
         <label>
@@ -50,25 +50,25 @@ if (isset($_POST["submit"])) {
       <li>
         <label>
           Nama Pegawai :
-          <input type="text" name="nama" required>
+          <input type="text" name="nama" size="40" required>
         </label>
       </li>
       <li>
         <label>
           Pangkat :
-          <input type="text" name="pangkat" required>
+          <input type="text" name="pangkat" size="40" required>
         </label>
       </li>
       <li>
         <label>
           Jabatan :
-          <input type="text" name="jabatan" required>
+          <input type="text" name="jabatan" size="50" required>
         </label>
       </li>
       <li>
         <label>
           Foto :
-          <input type="text" name="gambar" required>
+          <input type="file" name="gambar">
         </label>
       </li>
       <br>

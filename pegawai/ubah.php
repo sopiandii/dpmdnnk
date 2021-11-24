@@ -43,8 +43,10 @@ if (isset($_POST["submit"])) {
 <body>
   <h1>Ubah Data Pegawai</h1>
 
-  <form action="" method="POST">
-    <input type="hidden" name="id" required value="<?= $pns["id"]; ?>">
+  <form action="" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="<?= $pns["id"]; ?>">
+    <input type="hidden" name="gambarLama" value="<?= $pns["gambar"]; ?>">
+
     <ul>
       <li>
         <label>
@@ -55,25 +57,27 @@ if (isset($_POST["submit"])) {
       <li>
         <label>
           Nama Pegawai :
-          <input type="text" name="nama" required value="<?= $pns["nama"]; ?>">
+          <input type="text" name="nama" required value="<?= $pns["nama"]; ?>" size="40">
         </label>
       </li>
       <li>
         <label>
           Pangkat :
-          <input type="text" name="pangkat" required value="<?= $pns["pangkat"]; ?>">
+          <input type="text" name="pangkat" required value="<?= $pns["pangkat"]; ?>" size="40">
         </label>
       </li>
       <li>
         <label>
           Jabatan :
-          <input type="text" name="jabatan" required value="<?= $pns["jabatan"]; ?>">
+          <input type="text" name="jabatan" required value="<?= $pns["jabatan"]; ?>" size="40">
         </label>
       </li>
       <li>
         <label>
           Foto :
-          <input type="text" name="gambar" required value="<?= $pns["gambar"]; ?>">
+          <br>
+          <img src="img/<?= $pns["gambar"]; ?>" width="40"> <br>
+          <input type="file" name="gambar">
         </label>
       </li>
       <br>
