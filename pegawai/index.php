@@ -9,6 +9,10 @@ if (isset($_POST["tambah"])) {
   exit;
 }
 
+if (isset($_POST["cari"])) {
+  $pegawai = cari($_POST["keyword"]);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +30,9 @@ if (isset($_POST["tambah"])) {
 
   <form action="" method="POST">
     <button type="submit" name="tambah">Tambah Data Pegawai</button>
+    <br><br>
+    <input type="text" name="keyword" placeholder="Masukkan nama pegawai..." autocomplete="off" autofocus size="40">
+    <button type="submit" name="cari">Cari</button>
     <br><br>
   </form>
 
