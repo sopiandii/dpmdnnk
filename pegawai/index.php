@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION["login"])) {
+  header("Location: login.php");
+  exit;
+}
+
 require 'functions.php';
 
 $pegawai = query("SELECT * FROM pegawai");
@@ -6,6 +12,16 @@ $pegawai = query("SELECT * FROM pegawai");
 
 if (isset($_POST["tambah"])) {
   header("Location: tambah.php");
+  exit;
+}
+
+if (isset($_POST["daftar"])) {
+  header("Location: registrasi.php");
+  exit;
+}
+
+if (isset($_POST["logout"])) {
+  header("Location: logout.php");
   exit;
 }
 
@@ -26,6 +42,13 @@ if (isset($_POST["cari"])) {
 </head>
 
 <body>
+
+  <form action="" method="POST">
+    <button type="submit" name="daftar">Daftar user baru</button>
+    <button type="submit" name="logout">Keluar</button>
+    <br>
+  </form>
+
   <h1>Daftar Pegawai</h1>
 
   <form action="" method="POST">

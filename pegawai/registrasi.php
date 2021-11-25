@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION["login"])) {
+  header("Location: login.php");
+  exit;
+}
+
 require 'functions.php';
 
 if (isset($_POST["register"])) {
@@ -51,8 +57,9 @@ if (isset($_POST["register"])) {
           <input type="password" name="password2" required>
         </label>
       </li>
-      <br><br>
+      <br>
       <button type="submit" name="register">Daftar</button>
+      <a href="index.php">Batal</a>
     </ul>
 
   </form>
