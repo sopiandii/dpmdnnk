@@ -9,13 +9,12 @@ require 'functions.php';
 
 // pagination
 // konfigurasi
-$jumlahDataPerHalaman = 5;
-$jumlahData = count(query("SELECT * FROM pegawai"));
-$jumlahHalaman = ceil($jumlahData / $jumlahDataPerHalaman);
-$halamanAktif = (isset($_GET["halaman"])) ? $_GET["halaman"] : 1;
-$awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
-
-$pegawai = query("SELECT * FROM pegawai LIMIT $awalData, $jumlahDataPerHalaman");
+$jumlahDataPerHalaman = 5; //untuk menentukan berapa jumlah data yang ditampilkan per halaman
+$jumlahData = count(query("SELECT * FROM pegawai")); //untuk menghitung jumlah seluruh data dalam database
+$jumlahHalaman = ceil($jumlahData / $jumlahDataPerHalaman); //untuk menghitung banyaknya halaman yang akan dibuat
+$halamanAktif = (isset($_GET["halaman"])) ? $_GET["halaman"] : 1; //untuk menentukan halaman yang sedang aktif
+$awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman; //untuk menentukan index data awal tiap halaman
+$pegawai = query("SELECT * FROM pegawai LIMIT $awalData, $jumlahDataPerHalaman"); //untuk menentukan index data awal dan jumlah data yg ditampilkan
 
 
 if (isset($_POST["tambah"])) {
@@ -68,24 +67,26 @@ if (isset($_POST["cari"])) {
   </form>
 
   <!-- navigasi -->
-
-  <?php if ($halamanAktif > 1) : ?>
-    <a href="?halaman=<?= $halamanAktif - 1; ?>">&laquo;</a>
-  <?php endif; ?>
-
-  <?php for ($i = 1; $i <= $jumlahHalaman; $i++) : ?>
-    <?php if ($i == $halamanAktif) : ?>
-      <a href="?halaman=<?= $i; ?>" style="font-weight: bolder; color:red"><?= $i; ?></a>
-    <?php else : ?>
-      <a href="?halaman=<?= $i; ?>"><?= $i; ?></a>
+  <?php if (!isset($_POST["cari"])) : ?>
+    <?php if ($halamanAktif > 1) : ?>
+      <a href="?halaman=<?= $halamanAktif - 1; ?>">&laquo;</a>
     <?php endif; ?>
-  <?php endfor; ?>
 
-  <?php if ($halamanAktif < $jumlahHalaman) : ?>
-    <a href="?halaman=<?= $halamanAktif + 1; ?>">&raquo;</a>
+    <?php for ($i = 1; $i <= $jumlahHalaman; $i++) : ?>
+      <?php if ($i == $halamanAktif) : ?>
+        <a href="?halaman=<?= $i; ?>" style="font-weight: bolder; color:red"><?= $i; ?></a>
+      <?php else : ?>
+        <a href="?halaman=<?= $i; ?>"><?= $i; ?></a>
+      <?php endif; ?>
+    <?php endfor; ?>
+
+    <?php if ($halamanAktif < $jumlahHalaman) : ?>
+      <a href="?halaman=<?= $halamanAktif + 1; ?>">&raquo;</a>
+    <?php endif; ?>
   <?php endif; ?>
-
   <br>
+
+
   <table border="1" cellpadding="10" cellspacing="0">
     <tr>
       <th>No.</th>

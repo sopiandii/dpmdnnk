@@ -76,7 +76,7 @@ if (isset($_POST["login"])) {
       <li>
         <label>
           Username :
-          <input type="text" name="username">
+          <input type="text" name="username" autofocus>
         </label>
       </li>
       <li>
