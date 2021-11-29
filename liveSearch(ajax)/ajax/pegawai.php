@@ -4,7 +4,7 @@ $keyword = $_GET["keyword"];
 
 $query = "SELECT * FROM pegawai WHERE nama LIKE '%$keyword%'";
 
-$pegawai = query($query)
+$pegawai = query($query);
 
 ?>
 
