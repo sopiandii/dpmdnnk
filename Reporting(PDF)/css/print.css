@@ -1,0 +1,15 @@
+body {
+  font-family: Arial;
+}
+
+th {
+  font-size: 12px;
+}
+
+tr:nth-child(even){
+  background-color: #ddd;
+}
+
+td {
+  font-size: 10px;
+}
