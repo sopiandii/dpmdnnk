@@ -86,6 +86,11 @@ function upload()
 function hapus($id)
 {
   global $conn;
+
+  // menghapus gambar di folder img
+  $pns = query("SELECT * FROM pegawai WHERE id = $id");
+  unlink('img/' . $pns[0]["gambar"]);
+
   mysqli_query($conn, "DELETE FROM pegawai WHERE id = $id");
   return mysqli_affected_rows($conn);
 }
